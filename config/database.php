@@ -48,7 +48,7 @@ return [
 		'mysql' => [
 			'driver'    => 'mysql',
 			'host'      => env('DB_HOST', 'localhost'),
-			'database'  => env('DB_DATABASE', 'miami_sea_charter'),
+			'database'  => env('DB_DATABASE', 'DB'),
 			'username'  => env('DB_USERNAME', 'root'),
 			'password'  => env('DB_PASSWORD', ''),
 			'charset'   => 'utf8',
