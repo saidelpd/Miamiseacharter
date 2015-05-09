@@ -16,8 +16,9 @@ class CreateCommissionTable extends Migration {
         {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('commission_regular');
-            $table->string('commission_plus');
+            $table->float('commission_regular');
+            $table->float('commission_plus');
+            $table->integer('commission_plus_from');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

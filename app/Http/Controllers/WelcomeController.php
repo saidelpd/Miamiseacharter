@@ -1,5 +1,9 @@
 <?php namespace App\Http\Controllers;
 
+use App\Http\Model\Boats;
+use App\Http\Model\Services;
+use Carbon\Carbon;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -30,6 +34,8 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
+        $service = Boats::getFree(Carbon::now());
+
 		return view('welcome');
 	}
 

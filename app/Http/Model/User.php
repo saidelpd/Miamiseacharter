@@ -31,4 +31,30 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+
+    public function scopeGuess($query)
+    {
+       $query->where('roles_id',4);
+    }
+
+    public function scopeSalesDepartment($query)
+    {
+        $query->where(function($q){
+            $q->where('roles_id',3)->orWhere('roles_id',2);
+        });
+    }
+
+    public function scopeVendor($query)
+    {
+        $query->where('roles_id',3);
+    }
+    public function scopeConcierge($query)
+    {
+        $query->where('roles_id',2);
+    }
+
+    public function scopeAdmin($query)
+    {
+        $query->where('roles_id',1);
+    }
 }

@@ -17,9 +17,12 @@ class Payments extends Migration {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('card_number',100);
+            $table->string('card_type',100);
             $table->string('ccv',4);
             $table->string('expiration_month',2);
             $table->string('expiration_year',4);
+            $table->float('total');
+            $table->float('taxes');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
