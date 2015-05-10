@@ -8,6 +8,9 @@ use App\Http\Model\User;
 use App\Http\Model\Commission;
 use App\Http\Model\ServicesSpecialPrice;
 use App\Http\Model\ServicesTimes;
+use App\Http\Model\Appointments;
+use Carbon\Carbon;
+use App\Http\Model\Boats;
 
 class DatabaseSeeder extends Seeder {
 
@@ -26,9 +29,9 @@ class DatabaseSeeder extends Seeder {
 		$this->call('PaymentsTableSeeder');
 		$this->call('CommissionTableSeeder');
 		$this->call('ServicesSpecialPriceTableSeeder');
-		$this->call('ServicesTimesTableSeeder');
-        */
-
+        $this->call('ServicesTimesTableSeeder');
+        $this->call('AppointmentsTableSeeder');
+       */
 	}
 
 }
@@ -222,7 +225,16 @@ class ServicesTimesTableSeeder extends Seeder{
         ]);
 
         /**
-         * Night Marina
+         * Sea Burial
+         */
+        ServicesTimes::create([
+            'services_id' => 4,
+            'time_start'=>'07:00:00',
+            'time_end' => '19:00:00'
+        ]);
+
+        /**
+         * Bimini
          */
         ServicesTimes::create([
             'services_id' => 5,
@@ -230,5 +242,63 @@ class ServicesTimesTableSeeder extends Seeder{
             'time_end' => '19:00:00'
         ]);
 
+        /**
+         * Travel
+         */
+        ServicesTimes::create([
+            'services_id' => 6,
+            'time_start'=>'07:00:00',
+            'time_end' => '11:00:00'
+        ]);
     }
+}
+
+
+/**
+ * Class AppointmentsTableSeeder
+ */
+class AppointmentsTableSeeder extends Seeder{
+
+   public $start_time;
+    public $end_time;
+    public function run()
+    {
+        $faker = Faker\Factory::create('en_US');
+        DB::table('appointments')->delete();
+        $payments = Payments::all();
+        foreach ($payments as $pay)
+        {
+            $date = Carbon::create('2015',$faker->numberBetween(6,12),$faker->numberBetween(1,30));
+            $service = Services::with('times')->where('id',$faker->numberBetween(1,6))->first();
+            $boat = $this->GetFreeBoat($date,$service);
+
+           Appointments::create([
+                'payments_id' => $pay->id,
+                'services_id' => $service->id,
+                'boat_id' => (isset($boat->id))? $boat->id : 1,
+                'start' => $this->start_time,
+                'end' => $this->end_time
+            ]);
+        }
+    }
+
+    public function GetFreeBoat(Carbon $date,$service)
+    {
+        if(count($service->times))
+        {
+            foreach($service->times as $timesAllow)
+            {
+                if($boat = Boats::getFree($timesAllow->getTimeStart($date), $timesAllow->getTimeEnd($date)))
+                {
+                    $this->start_time = $timesAllow->getTimeStart($date);
+                    $this->end_time = $timesAllow->getTimeEnd($date);
+                    return $boat;
+                }
+            }
+         $this->GetFreeBoat($date->addDay(),$service);
+        }
+        $service = Services::with('times')->where('id',1)->first();
+        $this->GetFreeBoat($date->addDay(),$service);
+    }
+
 }

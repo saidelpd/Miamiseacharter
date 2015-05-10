@@ -17,11 +17,10 @@ class WelcomeController extends Controller {
 	|
 	*/
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
+    /**
+     * Create a new controller instance.
+     *
+     */
 	public function __construct()
 	{
 		$this->middleware('guest');
@@ -34,8 +33,6 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-        $service = Boats::getFree(Carbon::now());
-
 		return view('welcome');
 	}
 

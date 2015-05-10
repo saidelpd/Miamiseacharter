@@ -17,16 +17,15 @@ class Boats extends Model {
     }
 
 
-
-    public static function getFree(Carbon $date)
+    public function scopeGetFree( $query, Carbon $dateStart,Carbon $dateEnd)
     {
-        $boats = self::with(['appointments'=>function($q) use($date){
-          $q->where('start','>=', $date->startOfDay()->toDateTimeString())->where('end','>=', $date->endOfDay()->toDateTimeString());
+        $boats = $query->with(['appointments'=>function($q) use($dateStart , $dateEnd){
+          $q->where('start','>=', $dateStart)->where('end','<=', $dateEnd->endOfDay());
          }])->orderBy('priority')->get();
-
         foreach($boats as $boat)
         {
-
+           if(!count($boat->appointments)) return $boat;
+            continue;
         }
     }
 
