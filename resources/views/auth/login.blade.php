@@ -1,6 +1,47 @@
-@extends('app')
+@extends('layouts.blank')
 
 @section('content')
+
+
+        <div class="content-box-bordered login-box">
+            <h1>Log in to your account</h1>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="inputEmail3b" class="control-label sr-only">Email</label>
+                    <div class="col-sm-12">
+                            <input type="email" class="form-control" id="inputEmail3b" placeholder="Email Address">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3b" class="control-label sr-only">Password</label>
+                    <div class="col-sm-12">
+                            <input type="password" class="form-control" id="inputPassword3b" placeholder="Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label class="fancy-checkbox">
+                            <input type="checkbox">
+                            <span>Remember me</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-7">
+                        <button type="submit" class="btn btn-success btn-block">Login</button>
+                    </div>
+                    <div class="col-md-5 text-right">
+                        <a href="#">
+                            <em>forgot password?</em>
+                        </a>
+                    </div>
+                </div>
+            </form>
+            <button type="button" class="btn btn-link btn-login-help"><i class="icon ion-help-circled"></i></button>
+        </div>
+
+
+
 
 <div class="container-fluid">
 	<div class="row">
