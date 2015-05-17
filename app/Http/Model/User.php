@@ -57,4 +57,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $query->where('roles_id',1);
     }
+
+    public function getName()
+    {
+        return $this->attributes['first']." ".$this->attributes['last'];
+    }
+
 }

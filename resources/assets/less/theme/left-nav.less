@@ -1,0 +1,144 @@
+
+/*------------------------------------------------*/
+/*	Main Navigation
+/*------------------------------------------------*/
+.main-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-bottom: 70px;
+  z-index: 1;
+  width: 100%;
+}
+.main-nav h3 {
+  font-family: "josefinslab-semibold";
+  margin: 30px 10px 15px;
+  padding-bottom: 12px;
+  font-size: 1.1em;
+  color: #6a6a6a;
+  border-bottom: 1px solid #3d3d3d;
+}
+
+ul.main-menu {
+  padding-left: 0;
+  list-style-type: none;
+  margin-bottom: 0;
+}
+ul.main-menu li a {
+  display: block;
+  position: relative;
+  padding: 12px 0 12px 15px;
+  font-size: 12px;
+  color: #dadada;
+}
+ul.main-menu li a:hover, ul.main-menu li a:focus {
+  text-decoration: none;
+  color: #fff;
+  background-color: #2e2e2e;
+}
+ul.main-menu li.active > a {
+  color: #fff;
+  background-color: #0f0f0f;
+}
+ul.main-menu li.active > a.submenu-toggle {
+  background-color: transparent;
+}
+ul.main-menu li i {
+  font-size: 14px;
+}
+ul.main-menu li .text {
+  padding-left: 10px;
+}
+ul.main-menu li.has-submenu {
+  position: relative;
+}
+ul.main-menu li.has-submenu > a:after {
+  font-family: ionicons;
+  font-size: 14px;
+  width: 10px;
+  position: absolute;
+  right: 15px;
+  top: 18px;
+  text-shadow: none;
+  content: '\f153';
+}
+ul.main-menu li.has-submenu.active > a:after {
+  content: '\f151';
+}
+ul.main-menu li.has-submenu li.has-submenu > a:after {
+  top: 11px;
+}
+ul.main-menu .sub-menu {
+  position: relative;
+  padding-left: 0;
+}
+ul.main-menu .sub-menu li a {
+  background-color: #131313;
+}
+ul.main-menu .sub-menu li a:hover, ul.main-menu .sub-menu li a:focus {
+  background-color: #2e2e2e;
+}
+ul.main-menu .sub-menu li a .badge {
+  position: absolute;
+  right: 15px;
+}
+ul.main-menu .sub-menu li .text {
+  padding-left: 27px;
+}
+ul.main-menu .sub-menu li.active a {
+  background-color: #000;
+}
+ul.main-menu .sub-menu li .sub-menu .text {
+  padding-left: 50px;
+}
+/* minified main navigation active */
+.main-nav-minified #col-left {
+  width: 55px;
+  top: 35px;
+}
+.main-nav-minified #col-left ul.main-menu > li:hover > ul.sub-menu,
+.main-nav-minified #col-left ul.sub-menu > li:hover > ul.sub-menu {
+  display: block !important;
+  min-width: 200px;
+  position: absolute;
+  top: 0;
+  margin-left: 55px;
+  z-index: 9999;
+}
+.main-nav-minified #col-left ul.main-menu > li.has-submenu li.has-submenu > a:after {
+  font-family: ionicons;
+  font-size: 14px;
+  content: '\f154';
+  display: block;
+}
+.main-nav-minified #col-left ul.sub-menu > li:hover > ul.sub-menu {
+  margin-left: 200px;
+}
+.main-nav-minified #col-left ul.main-menu li i {
+  font-size: 18px;
+}
+.main-nav-minified #col-left ul.main-menu li > a:hover {
+  background-color: #1e1e1e;
+}
+.main-nav-minified #col-right {
+  margin-left: 55px;
+}
+@media screen and (max-width: 1200px) {
+  .main-nav-minified #col-right {
+    margin-left: 0;
+  }
+}
+.main-nav-minified .main-nav h3,
+.main-nav-minified ul.main-menu > li > a span,
+.main-nav-minified ul.main-menu li.has-submenu > a:after,
+.main-nav-minified #col-left .main-menu > li.has-submenu.active .sub-menu,
+.main-nav-minified #col-left .widget {
+  display: none;
+}
+.main-nav-minified ul.main-menu > li > a {
+  padding: 12px;
+  text-align: center;
+}
+.main-nav-minified ul.main-menu ul.sub-menu li .text {
+  padding-left: 0;
+}

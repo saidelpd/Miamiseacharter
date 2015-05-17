@@ -65,7 +65,11 @@ trait HelperTrait
             "jedit"=>"vendor/jeditable/jedit",
             "multiselect"=>"vendor/multiselect/bootstrap-multiselect",
             /*Graphs libraries*/
-            "chart" => "vendor/chartJs/chart.min",
+            "flot" => "vendor/flot/jquery.flot.min",
+            "flot-resize" => "vendor/flot/jquery.flot.resize.min",
+            "flot-time" => "vendor/flot/jquery.flot.time.min",
+            "flot-tooltip" => "vendor/flot/jquery.flot.tooltip.min",
+            "flot-orderBars" => "vendor/flot/jquery.flot.orderBars",
             /*PRINT*/
             'jprint'=>"vendor/printPage/jquery.printPage",
         ];

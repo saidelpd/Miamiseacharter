@@ -13,7 +13,14 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('admin', 'Admin\AdminController@index');
+
+Route::group(['prefix' => 'admin'], function () {
+Route::get('/', ['uses' => 'Admin\AdminController@index', 'as' => 'admin.dashboard']);
+});
+
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/profile', ['uses' => 'Users\UsersController@profile', 'as' => 'users.profile']);
+});
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

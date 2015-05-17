@@ -1,8 +1,8 @@
-<?php namespace App\Http\Controllers\Admin;
+<?php namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 
-class AdminController extends Controller {
+class UsersController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -14,7 +14,6 @@ class AdminController extends Controller {
 	| controller as you wish. It is just here to get your app started!
 	|
 	*/
-
     /**
      * Create a new controller instance.
      *
@@ -30,10 +29,10 @@ class AdminController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function profile()
 	{
-        $this->setupLayout("Dashboard", ['flot','flot-resize','flot-time','flot-tooltip','flot-orderBars', 'admin/dashboard']);
-		return view('pages.admin.dashboard');
+        $this->setupLayout("User Profile");
+		return view('pages.users.profile');
 	}
 
 }
