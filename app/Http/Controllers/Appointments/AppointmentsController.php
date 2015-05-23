@@ -25,7 +25,7 @@ class AppointmentsController extends Controller {
 
 	public function index()
 	{
-        $this->setupLayout("User Profile",['moment','calendar','appointments/index']);
+        $this->setupLayout("User Profile",['jquery-ui','moment','calendar','appointments/index']);
          return view('pages.appointments.index');
          //dd($this->appointments->find(45));
 	}

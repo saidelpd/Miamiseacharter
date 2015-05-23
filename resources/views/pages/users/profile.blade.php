@@ -9,12 +9,12 @@
     </div>
     <!-- END PRIMARY CONTENT HEADING -->
 
-    <div class="row">
+    <div class="row padding_25">
         <div class="col-sm-7">
             <!-- BASIC INPUT -->
             <div class="widget">
                 <div class="widget-header clearfix">
-                    <h3><i class="icon ion-android-arrow-down-right"></i>
+                    <h3>
                         <span>User Profile</span>
                     </h3>
                 </div>

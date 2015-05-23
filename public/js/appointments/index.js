@@ -3,11 +3,11 @@ $(document).ready(function () {
         header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'month,basicWeek,basicDay'
+            right: 'month,agendaWeek,agendaDay'
         },
         defaultDate: '2015-02-12',
         editable: true,
-        eventLimit: true, // allow "more" link when too many events
+        eventLimit: true,
         events: [
             {
                 title: 'All Day Event',
@@ -65,5 +65,5 @@ $(document).ready(function () {
             }
         ]
     });
-
+    $('#calendar').fullCalendar('changeView','agendaWeek');
 });
