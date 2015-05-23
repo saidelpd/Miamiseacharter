@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => null, 'name' => null],
+	'from' => ['address' => 'saidelpd@gmail.com', 'name' => 'Miami Sea Charter'],
 
 	/*
 	|--------------------------------------------------------------------------

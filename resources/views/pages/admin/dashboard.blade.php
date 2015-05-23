@@ -112,8 +112,7 @@
     <div class="primary-content-heading clearfix">
         <h2 class="dashboard-title">Welcome {{$user->first}}</h2>
         <ul class="breadcrumb pull-left">
-            <li><i class="fa fa-home"></i> <a href="#">Home</a></li>
-            <li class="active">Dashboard</li>
+            <li><i class="fa fa-dashboard"></i> Dashboard</li>
         </ul>
     </div>
     <!-- END PRIMARY CONTENT HEADING -->

@@ -51,7 +51,7 @@
                     <li>
                         <a href="{{URL::route('users.profile')}}">
                             <i class="fa fa-user"></i>
-                            <span class="text">Profile</span>
+                            <span class="text">My Profile</span>
                         </a>
                     </li>
                     <li>

@@ -61,9 +61,11 @@ trait HelperTrait
             "helper" => "helper",
             "ini_dates" => "ini_dates",
             "jquery-ui"=>"vendor/jquery-ui.min",
+
             "icheck"=>"vendor/icheck/icheck.min",
             "jedit"=>"vendor/jeditable/jedit",
             "multiselect"=>"vendor/multiselect/bootstrap-multiselect",
+
             /*Graphs libraries*/
             "flot" => "vendor/flot/jquery.flot.min",
             "flot-resize" => "vendor/flot/jquery.flot.resize.min",
@@ -72,6 +74,11 @@ trait HelperTrait
             "flot-orderBars" => "vendor/flot/jquery.flot.orderBars",
             /*PRINT*/
             'jprint'=>"vendor/printPage/jquery.printPage",
+
+            /*CALENDAR*/
+            'moment'=>'vendor/full-calendar/moment.min',
+            'calendar'=>'vendor/full-calendar/fullcalendar.min',
+
         ];
         return $this->loading($alias, $need);
     }

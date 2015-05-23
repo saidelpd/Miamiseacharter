@@ -30,7 +30,6 @@ class PasswordController extends Controller {
 	{
 		$this->auth = $auth;
 		$this->passwords = $passwords;
-		$this->middleware('guest');
         parent::__construct();
 	}
 

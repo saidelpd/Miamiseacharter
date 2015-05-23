@@ -1,26 +1,21 @@
 <?php namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Commands\Users\ProfileCommand;
 
 class UsersController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders your application's "dashboard" for users that
-	| are authenticated. Of course, you are free to change or remove the
-	| controller as you wish. It is just here to get your app started!
-	|
-	*/
+    protected $request;
+
     /**
      * Create a new controller instance.
-     *
+     * @param Request $request
      */
-	public function __construct()
+	public function __construct(Request $request)
 	{
 		$this->middleware('auth');
+        $this->request = $request;
         parent::__construct();
 	}
 
@@ -31,6 +26,10 @@ class UsersController extends Controller {
 	 */
 	public function profile()
 	{
+        if($this->request->isMethod('post'))
+        {
+        return ($profile = $this->dispatch(new ProfileCommand($this->request,$this->user))) ? view('pages.users.profile')->withErrors($profile) : view('pages.users.profile')->withSuccess(true);
+        }
         $this->setupLayout("User Profile");
 		return view('pages.users.profile');
 	}
