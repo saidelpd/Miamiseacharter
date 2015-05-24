@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder {
 		$this->call('PaymentsTableSeeder');
 		$this->call('CommissionTableSeeder');
 		$this->call('ServicesSpecialPriceTableSeeder');
-        $this->call('ServicesTimesTableSeeder');
+        $this->call('ServicesTimesTableSeeder');*/
         $this->call('AppointmentsTableSeeder');
-       */
+
 	}
 
 }
@@ -268,17 +268,19 @@ class AppointmentsTableSeeder extends Seeder{
         $payments = Payments::all();
         foreach ($payments as $pay)
         {
-            $date = Carbon::create('2015',$faker->numberBetween(6,12),$faker->numberBetween(1,30));
+            $date = Carbon::create('2015',$faker->numberBetween(6,7),$faker->numberBetween(1,30));
             $service = Services::with('times')->where('id',$faker->numberBetween(1,6))->first();
             $boat = $this->GetFreeBoat($date,$service);
-
-           Appointments::create([
-                'payments_id' => $pay->id,
-                'services_id' => $service->id,
-                'boat_id' => (isset($boat->id))? $boat->id : 1,
-                'start' => $this->start_time,
-                'end' => $this->end_time
-            ]);
+            if(isset($boat->id))
+            {
+                Appointments::create([
+                    'payments_id' => $pay->id,
+                    'services_id' => $service->id,
+                    'boat_id' => $boat->id,
+                    'start' => $this->start_time,
+                    'end' => $this->end_time
+                ]);
+            }
         }
     }
 
@@ -288,17 +290,15 @@ class AppointmentsTableSeeder extends Seeder{
         {
             foreach($service->times as $timesAllow)
             {
-                if($boat = Boats::getFree($timesAllow->getTimeStart($date), $timesAllow->getTimeEnd($date)))
+                $time = $timesAllow->GetTime($date);
+                if($boat = Boats::getFree($time['start'], $time['end']))
                 {
-                    $this->start_time = $timesAllow->getTimeStart($date);
-                    $this->end_time = $timesAllow->getTimeEnd($date);
+                    $this->start_time = $time['start'];
+                    $this->end_time = $time['end'];
                     return $boat;
                 }
             }
-         $this->GetFreeBoat($date->addDay(),$service);
         }
-        $service = Services::with('times')->where('id',1)->first();
-        $this->GetFreeBoat($date->addDay(),$service);
     }
 
 }

@@ -27,6 +27,16 @@ class ServicesTimes extends Model
         return $dateTime->startOfDay()->addHours($hour)->addMinute($time[1])->addHours($time[2]);
     }
 
+    public function GetTime(Carbon $date)
+    {
+        $time['start'] = $this->getTimeStart($date);
+        $time['end'] =  $this->getTimeEnd($date);
+        if($time['start']->gt($time['end']))
+        {
+            $time['end']->addDay();
+        }
+        return $time;
+    }
 
 
 }

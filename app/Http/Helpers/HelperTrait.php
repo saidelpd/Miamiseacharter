@@ -83,4 +83,30 @@ trait HelperTrait
         return $this->loading($alias, $need);
     }
 
+    /**
+     * TO Use With Dates
+     * @param $startDate
+     * @param $endDate
+     * @param $period
+     * @return stdClass
+     */
+
+    public function ByDateScope($startDate , $endDate , $period)
+    {
+        $dates = new stdClass();
+        $startDate = new Carbon($startDate);
+        $start = $startDate->startOfDay()->toDateTimeString();
+        if($endDate)
+        {
+            $endDate = new Carbon($endDate);
+            $endDate = $endDate->endOfDay()->toDateTimeString();
+        }
+        else{
+            $endDate = ($period)? Carbon::now()->toDateTimeString() : $startDate->addDay(1)->toDateTimeString();
+        }
+        $dates->start = $start;
+        $dates->end = $endDate;
+        return $dates;
+    }
+
 }

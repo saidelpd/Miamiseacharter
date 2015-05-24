@@ -19,6 +19,9 @@
                     </h3>
                 </div>
                 <div class="widget-content">
+                    <div class="loading hide">
+                        <img src="/images/loading.gif">
+                    </div>
                     <div id='calendar'></div>
                 </div>
             </div>
