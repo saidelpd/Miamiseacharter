@@ -23,6 +23,7 @@ class Payments extends Migration {
             $table->string('expiration_year',4);
             $table->float('total');
             $table->float('taxes');
+            $table->boolean('processed');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

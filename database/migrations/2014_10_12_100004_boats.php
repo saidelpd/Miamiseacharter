@@ -15,7 +15,8 @@ class Boats extends Migration {
         Schema::create('boats', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name',150);
+            $table->string('color',50);
             $table->integer('priority');
         });
 	}

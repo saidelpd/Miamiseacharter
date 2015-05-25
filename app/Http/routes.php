@@ -32,6 +32,9 @@ Route::group(['prefix' => 'password'], function () {
 Route::group(['prefix' => 'appointments'], function () {
     Route::get('/', ['uses' => 'Appointments\AppointmentsController@index', 'as' => 'appointments.index']);
     Route::get('/getJson', ['uses' => 'Appointments\AppointmentsController@getJson', 'as' => 'appointments.getJson']);
+
+    Route::get('/create', ['uses' => 'Appointments\AppointmentsController@create', 'as' => 'appointments.create']);
+    Route::get('/show/{id}', ['uses' => 'Appointments\AppointmentsController@show', 'as' => 'appointments.show']);
 });
 
 

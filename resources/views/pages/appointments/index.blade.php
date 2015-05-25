@@ -8,6 +8,12 @@
     </ul>
     </div>
     <!-- END PRIMARY CONTENT HEADING -->
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <a href="{{URL::route('appointments.create')}}" class="btn btn-primary pull-right"><i
+                        class="fa fa-calendar"> Add Reservation</i></a>
+        </div>
+    </div>
 
     <div class="row padding_25">
         <div class="col-sm-12">
@@ -19,9 +25,6 @@
                     </h3>
                 </div>
                 <div class="widget-content">
-                    <div class="loading hide">
-                        <img src="/images/loading.gif">
-                    </div>
                     <div id='calendar'></div>
                 </div>
             </div>

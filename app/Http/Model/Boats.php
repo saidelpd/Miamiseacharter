@@ -7,7 +7,7 @@ class Boats extends Model {
 
     protected $table = 'boats';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','color'];
 
     public $timestamps =false;
 

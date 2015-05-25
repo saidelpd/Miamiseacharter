@@ -1,10 +1,11 @@
 <?php namespace App\Http\Helpers;
 
 use stdClass, Form, Carbon\Carbon;
+use App\Http\Model\Appointments;
 
 class HelperClass
 {
-     /**
+    /**
      * Delete Form
      * @param $routeParams
      * @param string $label
@@ -25,6 +26,7 @@ class HelperClass
         return $form .= Form::close();
     }
 
+
     /**
      * Format Integer TO Dollar
      * @param $number
@@ -33,13 +35,10 @@ class HelperClass
      */
     public static function Currency($number, $dollar_coma = false)
     {
-        $number = ($number &&  is_numeric($number))? $number :0;
-        if($dollar_coma){
-                setlocale(LC_MONETARY, 'en_US');
-                return  money_format('%(#10.2n', $number);
-        }
-        return '$ ' . money_format('%i', $number);
+        $number = ($number && is_numeric($number)) ? $number : 0;
+        return '$' . number_format($number, 2);
     }
+
     /**
      * Takes the last comma or dot (if any) to make a clean float, ignoring thousand separator, currency or any other letter.
      * $otherNum = '126,564,789.33 m²';
@@ -62,22 +61,53 @@ class HelperClass
         );
     }
 
-    public static function ByDateScope($startDate , $endDate , $period)
+    public static function ByDateScope($startDate, $endDate, $period)
     {
         $dates = new stdClass();
         $startDate = new Carbon($startDate);
         $start = $startDate->startOfDay()->toDateTimeString();
-        if($endDate)
-        {
+        if ($endDate) {
             $endDate = new Carbon($endDate);
             $endDate = $endDate->endOfDay()->toDateTimeString();
-        }
-        else{
-            $endDate = ($period)? Carbon::now()->toDateTimeString() : $startDate->addDay(1)->toDateTimeString();
+        } else {
+            $endDate = ($period) ? Carbon::now()->toDateTimeString() : $startDate->addDay(1)->toDateTimeString();
         }
         $dates->start = $start;
         $dates->end = $endDate;
         return $dates;
+    }
+
+    /**
+     * @param $user
+     * @param null $date
+     * @param null $appointmentId
+     * @return int
+     */
+    public static function UserCommission($user = null, $date = null, $appointmentId = null)
+    {
+        $date_start = ($date) ? clone $date->startOfMonth() : Carbon::now()->startOfMonth();
+        $date_end = ($date) ? clone $date->endOfMonth() : Carbon::now()->endOfMonth();
+        $my_app = Appointments::byDate($date_start, $date_end);
+        if ($user) {
+            $my_app = $my_app->where('user_id', $user->id);
+        }
+        $my_app = $my_app->with(['payment'=>function($p){
+            $p->select('id','total');
+        }])->get();
+        if($appointmentId) {
+           foreach($my_app as $key => $app)
+           {
+             if($app->id==$appointmentId)
+             {
+                 if(count($app->payment) && count($user->commission))
+                 {
+                  $commission = ($key > $user->commission->plus_from) ?  $user->commission->plus : $user->commission->regular;
+                  return $app->payment->total * ($commission/100);
+                 }
+             }
+           }
+            return 0;
+        }
     }
 
 

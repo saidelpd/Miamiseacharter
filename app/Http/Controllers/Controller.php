@@ -4,6 +4,7 @@ use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Http\Helpers\HelperTrait;
+use App\Http\Helpers\HelperClass;
 use Auth,View;
 
 abstract class Controller extends BaseController {
@@ -20,6 +21,7 @@ abstract class Controller extends BaseController {
         }
         View::share([
             'user' => $this->user,
+             'helper' => new HelperClass()
         ]);
     }
 

@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Model::unguard();
-       /* $this->call('RolesTableSeeder');
+        $this->call('RolesTableSeeder');
 		$this->call('ServicesTableSeeder');
         $this->call('BoatsTableSeeder');
 		$this->call('UsersTableSeeder');
 		$this->call('PaymentsTableSeeder');
 		$this->call('CommissionTableSeeder');
 		$this->call('ServicesSpecialPriceTableSeeder');
-        $this->call('ServicesTimesTableSeeder');*/
+        $this->call('ServicesTimesTableSeeder');
         $this->call('AppointmentsTableSeeder');
 
 	}
@@ -83,6 +83,7 @@ class PaymentsTableSeeder extends Seeder{
                 'ccv' => $faker->numberBetween(100,999),
                 'expiration_month' =>$faker->numberBetween(1,12),
                 'expiration_year' => $faker->numberBetween(2016,2022),
+                'processed' => 1,
                 'total' => $total,
                 'taxes' => ($total * 0.07),
             ]);
@@ -268,15 +269,18 @@ class AppointmentsTableSeeder extends Seeder{
         $payments = Payments::all();
         foreach ($payments as $pay)
         {
-            $date = Carbon::create('2015',$faker->numberBetween(6,7),$faker->numberBetween(1,30));
+            $date = Carbon::create('2015',$faker->numberBetween(6,8),$faker->numberBetween(1,30));
             $service = Services::with('times')->where('id',$faker->numberBetween(1,6))->first();
+            $users = User::salesDepartment()->get(['id']);
             $boat = $this->GetFreeBoat($date,$service);
+
             if(isset($boat->id))
             {
                 Appointments::create([
                     'payments_id' => $pay->id,
                     'services_id' => $service->id,
                     'boat_id' => $boat->id,
+                    'user_id' =>  $users[$faker->numberBetween(0,count($users)-1)]->id,
                     'start' => $this->start_time,
                     'end' => $this->end_time
                 ]);

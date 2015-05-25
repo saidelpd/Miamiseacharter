@@ -43,4 +43,27 @@ class Appointments extends Model {
         return $this->belongsTo('App\Http\Model\Boats');
     }
 
+    /**
+     * @return Service associate to this app
+     */
+    public function service()
+    {
+        return $this->belongsTo('App\Http\Model\Services','services_id','id');
+    }
+
+    /**
+     * @return Payment associate to this app
+     */
+    public function payment()
+    {
+        return $this->belongsTo('App\Http\Model\Payments','payments_id','id');
+    }
+    /**
+     * @return User who Create This appointment
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Http\Model\User','user_id','id');
+    }
+
 }

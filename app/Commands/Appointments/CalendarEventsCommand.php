@@ -4,7 +4,6 @@ use App\Commands\Command;
 use Carbon\Carbon;
 use Illuminate\Contracts\Bus\SelfHandling;
 use App\Http\Model\Appointments;
-use Validator;
 
 class CalendarEventsCommand extends Command implements SelfHandling
 {
@@ -29,8 +28,11 @@ class CalendarEventsCommand extends Command implements SelfHandling
            $values = [
                "title" => "Boat: " .$app->boat->name,
                "start" => $app->start->toRfc3339String(),
-               "end" => $app->end->toRfc3339String()
+               "end" => $app->end->toRfc3339String(),
+               "color" => $app->boat->color,
+               "url" => \URL::route('appointments.show',['id'=>$app->id]),
            ];
+
           return $values;
        });
        return $events->toJson();

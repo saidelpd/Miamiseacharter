@@ -10,12 +10,14 @@ class BoatsTableSeeder extends Seeder{
     {
         DB::table('boats')->delete();
         $boats = ['Siguarrete','Venlander'];
+        $color = ['#5cb85c','#337ab7'];
         $aux = 0;
-        foreach ($boats as $rol)
+        foreach ($boats as $key=>$rol)
         {
             Boats::create([
               'name' => $rol,
-              'priority'=>$aux
+              'priority'=>$aux,
+              'color'=> $color[$key]
           ]);
           $aux++;
         }

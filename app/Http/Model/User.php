@@ -48,6 +48,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $query->where('roles_id',3);
     }
+
     public function scopeConcierge($query)
     {
         $query->where('roles_id',2);
@@ -61,6 +62,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function getName()
     {
         return $this->attributes['first']." ".$this->attributes['last'];
+    }
+
+    /**
+     * @return User Commission
+     */
+    public function commission()
+    {
+        return $this->hasOne('App\Http\Model\Commission','user_id','id');
     }
 
 }
