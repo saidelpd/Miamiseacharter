@@ -32,7 +32,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	protected $hidden = ['password', 'remember_token'];
 
 
-    public function scopeGuess($query)
+    public function scopeGuest($query)
     {
        $query->where('roles_id',4);
     }
@@ -72,4 +72,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasOne('App\Http\Model\Commission','user_id','id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function role()
+    {
+        return $this->belongsTo('App\Http\Model\Roles','roles_id','id');
+    }
 }

@@ -10,4 +10,8 @@ class Roles extends Model {
 
     public $timestamps =false;
 
+    public function isRole($role)
+    {
+        return ($this->attributes['name']==$role);
+    }
 }

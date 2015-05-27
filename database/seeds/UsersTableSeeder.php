@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder{
               'last' => $faker->lastName,
               'email' => $faker->email,
               'phone' => $faker->phoneNumber,
-              'roles_id' => $faker->numberBetween(1,4),
+              'roles_id' => $faker->numberBetween(1,3),
               'password' => Hash::make('kurtcobain'),
           ]);
         }

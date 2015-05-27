@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers\Appointments;
 
 use App\Http\Controllers\Controller;
+use App\Http\Model\Payments;
+use App\Http\Model\User;
 use Illuminate\Http\Request;
 use App\Http\Model\Appointments;
 use App\Commands\Appointments\CalendarEventsCommand;
@@ -33,6 +35,41 @@ class AppointmentsController extends Controller {
         $this->setupLayout("Create a New Reservation");
         return view('pages.appointments.create');
     }
+
+    public function store()
+    {
+       $user = User::where('email',$this->request->stripeEmail)->with('role')->first();
+
+        if($user && count($user->roles) && $user->roles->isRole('Guest'))
+        {
+            $user->first = 'Test';
+            $user->last = 'Perez';
+            $user->phone = '786-449-8395';
+            $user->save();
+        }
+        else if(!$user) {
+            $user = User::create([
+                'first'=>'Yaima',
+                'last'=>'Rodriguez',
+                'email'=>$this->request->stripeEmail,
+                'phone'=>'786-449-8395',
+                'roles_id' => '4'
+            ]);
+        }
+       $payment = Payments::create([
+           'user_id'=>$user->id,
+           'total'=>18,
+           'taxes'=>2
+       ]);
+        dd($this->request->all());
+       $pago = $payment->charge(2000, [
+            'source' => $this->request->stripeToken,
+            'receipt_email' => $user->email,
+        ]);
+
+        dd('CHARGE DONE',$pago);
+    }
+
     /**
      * @return view with calendar
      * @return \Illuminate\View\View
