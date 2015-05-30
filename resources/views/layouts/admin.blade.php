@@ -27,8 +27,14 @@
 
 
 <!--JAVASCRIPTS-->
+
 <script src="/js/vendor/jquery.min.js"></script>
 <script src="/js/vendor/bootstrap.min.js"></script>
+
+@if(isset($api) && $api!=null)
+    <script type="text/javascript" src="{{$api}}"></script>
+@endif
+
 @if(isset($load_scripts) && count($load_scripts))
     @if(!in_array("helper", $load_scripts))
         <script src="/js/helper.js"></script>

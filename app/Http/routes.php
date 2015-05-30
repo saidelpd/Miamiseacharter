@@ -37,6 +37,10 @@ Route::group(['prefix' => 'appointments'], function () {
     Route::get('/show/{id}', ['uses' => 'Appointments\AppointmentsController@show', 'as' => 'appointments.show']);
 });
 
+Route::group(['prefix' => 'services'], function () {
+    Route::post('/hours', ['uses' => 'Services\ServicesController@hours', 'as' => 'services.hours']);
+});
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController'

@@ -4,6 +4,15 @@ function removeMinifiedOnSmallScreen() {
     }
 }
 
+
+function StartDateFilters()
+{
+    $("#date_start,#date_end").datepicker({minDate:new Date(2014, 1 - 1, 01),maxDate:new Date()});
+    $("#date_start").change(function(){
+        $("#date_end").datepicker("option", "minDate", $(this).val());
+    });
+}
+
 // helper function, get dayTime
 function gt(y, m, d) {
     return new Date(y, m-1, d).getTime();

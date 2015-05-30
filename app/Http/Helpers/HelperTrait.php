@@ -2,16 +2,18 @@
 use View;
 trait HelperTrait
 {
-     /**
+    /**
      * @param string $title
      * @param null $script
+     * @param null $api
      */
-    protected function setupLayout( $title = "", $script = null)
+    protected function setupLayout( $title = "", $script = null, $api = null)
     {
         if($script){ $script = $this->Load_Script($script); }
            View::share([
             'TITLE' => $title,
-            'load_scripts' => $script
+            'load_scripts' => $script,
+             'api' => $api
         ]);
     }
 
@@ -61,11 +63,8 @@ trait HelperTrait
             "helper" => "helper",
             "ini_dates" => "ini_dates",
             "jquery-ui"=>"vendor/jquery-ui.min",
-
             "icheck"=>"vendor/icheck/icheck.min",
             "jedit"=>"vendor/jeditable/jedit",
-            "multiselect"=>"vendor/multiselect/bootstrap-multiselect",
-
             /*Graphs libraries*/
             "flot" => "vendor/flot/jquery.flot.min",
             "flot-resize" => "vendor/flot/jquery.flot.resize.min",

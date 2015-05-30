@@ -31,7 +31,10 @@ class Boats extends Model {
         {
            if(!count($boat->appointments)) return $boat;
             $allow = $boat->appointments->filter(function($app) use ($dateStart,$endDate){
-                  return ( $dateStart->between($app->start, $app->end) || $endDate->between($app->start, $app->end) || $app->start->between($dateStart,$endDate) || $app->end->between($dateStart,$endDate));
+                  return ( $dateStart->between($app->start, $app->end) ||
+                      $endDate->between($app->start, $app->end) ||
+                      $app->start->between($dateStart,$endDate) ||
+                      $app->end->between($dateStart,$endDate));
             });
             if(!count($allow)) return $boat;
             continue;

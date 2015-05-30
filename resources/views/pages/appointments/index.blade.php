@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
-    <!-- PRIMARY CONTENT HEADING class="primary-content-heading clearfix">-->
+    <!-- PRIMARY CONTENT HEADING -->
+    <div class="primary-content-heading clearfix">
     <h2 class="dashboard-title">Reservations</h2>
     <ul class="breadcrumb pull-left">
         <li><i class="fa fa-dashboard"></i> <a href="{{URL::route('admin.dashboard')}}">Dashboard</a></li>
@@ -14,7 +15,6 @@
                         class="fa fa-calendar"> Add Reservation</i></a>
         </div>
     </div>
-
     <div class="row padding_25">
         <div class="col-sm-12">
             <!-- BASIC INPUT -->

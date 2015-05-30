@@ -24,6 +24,7 @@ class Payments extends Migration {
             $table->string('status');
             $table->float('total');
             $table->float('taxes');
+            $table->float('stripe_fee');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

@@ -3,11 +3,18 @@
 use App\Http\Controllers\Controller;
 use App\Http\Model\Payments;
 use App\Http\Model\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Model\Appointments;
+use App\Http\Model\Services;
 use App\Commands\Appointments\CalendarEventsCommand;
 use App\Commands\Appointments\ViewCommand;
 
+/**
+ * Class AppointmentsController
+ * Validation REQUEST
+ */
+use App\Http\Requests\Appointments\CreateRequest;
 
 class AppointmentsController extends Controller {
 
@@ -32,13 +39,16 @@ class AppointmentsController extends Controller {
      */
     public function create()
     {
-        $this->setupLayout("Create a New Reservation");
-        return view('pages.appointments.create');
+        $this->setupLayout("Create a New Reservation",['jquery-ui','appointments/create'],'https://js.stripe.com/v2/');
+        $services = ['Select One']+Services::lists('name','id');
+        $date = Carbon::now()->format('m/d/Y');
+        return view('pages.appointments.create')->with(compact('services','date'));
     }
 
-    public function store()
+    public function store(CreateRequest $create)
     {
-       $user = User::where('email',$this->request->stripeEmail)->with('role')->first();
+     dd($this->request);
+        $user = User::where('email',$this->request->email)->with('role')->first();
 
         if($user && count($user->roles) && $user->roles->isRole('Guest'))
         {
@@ -51,21 +61,27 @@ class AppointmentsController extends Controller {
             $user = User::create([
                 'first'=>'Yaima',
                 'last'=>'Rodriguez',
-                'email'=>$this->request->stripeEmail,
+                'email'=>$this->request->email,
                 'phone'=>'786-449-8395',
                 'roles_id' => '4'
             ]);
         }
-       $payment = Payments::create([
-           'user_id'=>$user->id,
-           'total'=>18,
-           'taxes'=>2
-       ]);
-        dd($this->request->all());
-       $pago = $payment->charge(2000, [
-            'source' => $this->request->stripeToken,
+
+        $payment = Payments::create([
+            'user_id'=>$user->id,
+            'total'=>18,
+            'taxes'=>2
+        ]);
+
+
+        $pago = $payment->charge(2000, [
+            'source' => $this->request->input('stripe-token'),
             'receipt_email' => $user->email,
         ]);
+
+
+
+
 
         dd('CHARGE DONE',$pago);
     }
