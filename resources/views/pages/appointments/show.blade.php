@@ -44,22 +44,22 @@
                                 Found!! @endif</td>
                         </tr>
 
-                        @if(count($appointment->user))
+                        @if(count($appointment->payment) && count($appointment->payment->user_commission))
                             <tr>
                                 <th>Create By</th>
-                                <td>{{$appointment->user->getName()}} </td>
+                                <td>{{$appointment->payment->user_commission->getName()}} </td>
                             </tr>
                             <tr>
-                                <th>{{$appointment->user->first}}'s Phone</th>
-                                <td>{{$appointment->user->phone}} </td>
+                                <th>{{$appointment->payment->user_commission->first}}'s Phone</th>
+                                <td>{{$appointment->payment->user_commission->phone}} </td>
                             </tr>
                             <tr>
-                                <th>{{$appointment->user->first}}'s Email</th>
-                                <td>{{$appointment->user->email}}</td>
+                                <th>{{$appointment->payment->user_commission->first}}'s Email</th>
+                                <td>{{$appointment->payment->user_commission->email}}</td>
                             </tr>
                             <tr>
                                 <th>Commission</th>
-                                <td class="text-right">{{$helper->Currency($commission)}}</td>
+                                <td class="text-right">{{$helper->Currency($appointment->payment->commission)}}</td>
                             </tr>
                         @else
                             <tr>
@@ -105,11 +105,40 @@
                             @endif
                             <tr>
                                 <th>Payment Status</th>
-                                <td class="text-right">@if($appointment->payment->processed)
+                                <td class="text-right">@if($appointment->payment->stripe_active &&  $appointment->payment->status == 'succeeded')
                                         <span class="label label-success">Success</span> @else
-                                        <span class="label label-danger">Canceled</span>
+                                        <span class="label label-danger">@if($appointment->payment->status !='') {{$appointment->payment->status}} @else Credit Card Declined @endif</span>
                                     @endif</td>
                             </tr>
+                            <?php
+                             $is_admin = $user->role->isRole('Admin');
+                            ?>
+                           @if($is_admin)
+                           <tr>
+                               <th>Stripe ID</th>
+                               <td class="text-right">{{$appointment->payment->stripe_id}}</td>
+                           </tr>
+                           <tr>
+                               <th>Credit Card #</th>
+                               <td class="text-right">**** **** **** {{$appointment->payment->last_four}}</td>
+                           </tr>
+                            <tr>
+                                <th>Brand</th>
+                                <td class="text-right">{{$appointment->payment->brand}}</td>
+                            </tr>
+                            <tr>
+                                <th>Funding</th>
+                                <td class="text-right">{{$appointment->payment->funding}}</td>
+                            </tr>
+                            <tr>
+                                <th>Exp Month/Year</th>
+                                <td class="text-right">{{$appointment->payment->exp_month}} / {{$appointment->payment->exp_year}} </td>
+                            </tr>
+                            <tr>
+                                <th>Stripe Fee</th>
+                                <td class="text-right">{{$appointment->payment->stripe_fee}}</td>
+                            </tr>
+                            @endif
                             <tr>
                                 <th>Service Price</th>
                                 <td class="text-right">{{$helper->Currency($appointment->payment->total)}}</td>
@@ -122,6 +151,12 @@
                                 <th>Total Price</th>
                                 <td class="text-right">{{$helper->Currency($appointment->payment->getTotalTaxes())}}</td>
                             </tr>
+                            @if($is_admin)
+                                <tr>
+                                    <th>Total Earned After Deductions</th>
+                                    <td class="text-right">{{$helper->Currency($appointment->payment->getTotalClean())}}</td>
+                                </tr>
+                                @endif
                         @else
                             <tr>
                                 <th><span class="label label-danger">Error</span></th>

@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-
     <!-- PRIMARY CONTENT HEADING-->
     <div class="primary-content-heading clearfix">
         <h2 class="dashboard-title">Reservations</h2>
@@ -12,8 +11,14 @@
     <!-- END PRIMARY CONTENT HEADING -->
     <div class="row">
         <div class="col-sm-10">
-            <div class="alert alert-danger payment-errors" role="alert" style="display: none">
+            @if($errors->first('custom_error'))
+            <div class="alert alert-danger payment-errors" role="alert">
+              {{$errors->first('custom_error')}}
             </div>
+              @else
+                <div class="alert alert-danger payment-errors" role="alert" style="display: none">
+                </div>
+            @endif
         </div>
     </div>
     <div class="widget-content">

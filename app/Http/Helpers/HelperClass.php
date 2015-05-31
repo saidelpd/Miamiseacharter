@@ -138,4 +138,19 @@ class HelperClass
        return  round( $amount * $tax , 2);
     }
 
+
+    /**
+     * Return Datime And Time in carbon instance
+     * @param Carbon $date
+     * @param $time
+     * @return static
+     */
+    public static function getDayTime(Carbon $date, $time)
+    {
+        $dateTime = clone $date;
+        $time = explode (':',$time);
+        $hour = ($time[0]=='00') ? 24 : $time[0];
+        return $dateTime->startOfDay()->addHours($hour)->addMinute($time[1])->addHours($time[2]);
+    }
+
 }

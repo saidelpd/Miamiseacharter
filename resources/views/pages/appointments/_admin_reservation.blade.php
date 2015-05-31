@@ -36,7 +36,7 @@
         <div class="form-group {{ $errors->has('first') ? 'has-error':''}}">
             {!! Form::label('first','First Name:',['class'=>'control-label col-sm-4']) !!}
             <div class="col-sm-6">
-                {!! Form::text('first',null,['class'=>'form-control','Placeholder'=>'Customer First Name']) !!}
+                {!! Form::text('first',old('first'),['class'=>'form-control','Placeholder'=>'Customer First Name']) !!}
                 {!! $errors->first('first','<span class="help-block">:message</span>') !!}
             </div>
         </div>

@@ -11,13 +11,10 @@ class ViewCommand extends Command implements SelfHandling
 
     public $id;
     public $appointment;
-    public $commission;
-
 
     function __construct($id)
     {
       $this->id = $id;
-      $this->commission = 0;
     }
     /**
      * Execute the command.
@@ -30,12 +27,12 @@ class ViewCommand extends Command implements SelfHandling
         },'service'=>function($s){
             $s->select('id','name','description');
         },'payment'=>function($p){
-            $p->with('user');
-        },'user'=>function($u){
-            $u->with('commission');
+            $p->with(['user'=>function($u){
+                $u->select('id','first','last','email','phone');
+            },'user_commission'=>function($c){
+                $c->select('id','first','last','email','phone');
+            }]);
         }])->find($this->id);
-         if(count($this->appointment) && count($this->appointment->user))
-        $this->commission = HelperClass::UserCommission($this->appointment->user,$this->appointment->start ,$this->appointment->id);
         return (Array) $this;
     }
 }

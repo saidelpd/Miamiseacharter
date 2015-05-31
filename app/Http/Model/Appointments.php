@@ -34,7 +34,6 @@ class Appointments extends Model {
         return $query->where('start', '>=', $dates->start)->where('start', '<=', $dates->end);
     }
 
-
     /**
      * @return boat associate to this app
      */

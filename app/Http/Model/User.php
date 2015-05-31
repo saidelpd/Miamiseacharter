@@ -63,7 +63,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->attributes['first']." ".$this->attributes['last'];
     }
-
     /**
      * @return User Commission
      */
@@ -71,7 +70,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasOne('App\Http\Model\Commission','user_id','id');
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -79,4 +77,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->belongsTo('App\Http\Model\Roles','roles_id','id');
     }
+
 }

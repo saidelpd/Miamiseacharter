@@ -38,7 +38,6 @@ class AvailableHoursCommand extends Command implements SelfHandling
             return $this;
         }
         $this->date = Carbon::createFromFormat('m/d/Y', $this->date);
-
         $services = Services::with('times')->find($this->id);
         if (!$services->special_price)
             $this->getHours($services);

@@ -63,7 +63,7 @@ function UpdatePrice(id)
                 }
                 if(html == '')
                 {
-                    ForceError('Sorry but there is no availability for this date');
+                    ForceError('Sorry but there is no availability for this date.');
                     $('.date_picker_form').addClass('has-error');
                     return false;
                 }

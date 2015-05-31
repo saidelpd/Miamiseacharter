@@ -61,6 +61,14 @@ class Payments extends Model implements BillableContract{
         return $this->belongsTo('App\Http\Model\User','user_id','id');
     }
 
+    /**
+     * @return User who Get Commission for This Payment
+     */
+    public function user_commission()
+    {
+        return $this->belongsTo('App\Http\Model\User','user_commission_id','id');
+    }
+
 
 
 }

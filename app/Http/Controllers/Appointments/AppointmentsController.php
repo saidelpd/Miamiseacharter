@@ -41,7 +41,7 @@ class AppointmentsController extends Controller {
     {
         $this->setupLayout("Create a New Reservation",['jquery-ui','appointments/create'],'https://js.stripe.com/v2/');
         $services = ['Select One']+Services::lists('name','id');
-        $date = Carbon::now()->format('m/d/Y');
+        $date = Carbon::now()->addDay()->format('m/d/Y');
         return view('pages.appointments.create')->with(compact('services','date'));
     }
 
@@ -49,7 +49,14 @@ class AppointmentsController extends Controller {
     {
          $price = $this->dispatchFromArray(PriceCommand::class,['id'=>$this->request->input('hours'),'currency'=>false]);
          $token = $this->request->input('stripe-token');
-         $this->dispatchFrom(StoreCommand::class,$this->request,compact('token','price'));
+         $reponse = $this->dispatchFrom(StoreCommand::class,$this->request,compact('token','price'));
+         if($reponse->has_error)
+         {
+             return redirect()->back()->withInput()->withErrors([
+                 'custom_error' => $reponse->message,
+             ]);
+         }
+        return redirect()->route('appointments.show',['id'=>$reponse->app_id]);
     }
 
     /**

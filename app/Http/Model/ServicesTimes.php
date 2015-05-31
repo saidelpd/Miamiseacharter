@@ -1,5 +1,6 @@
 <?php namespace App\Http\Model;
 
+use App\Http\Helpers\HelperClass;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,10 +28,7 @@ class ServicesTimes extends Model
      */
     public function getTimeStart(Carbon $date)
     {
-        $dateTime = clone $date;
-        $time = explode (':',$this->attributes['time_start']);
-        $hour = ($time[0]=='00') ? 24 : $time[0];
-        return $dateTime->startOfDay()->addHours($hour)->addMinute($time[1])->addHours($time[2]);
+      return  HelperClass::getDayTime($date,$this->attributes['time_start']);
     }
 
     /**
@@ -40,10 +38,7 @@ class ServicesTimes extends Model
      */
     public function getTimeEnd(Carbon $date)
     {
-        $dateTime = clone $date;
-        $time = explode (':',$this->attributes['time_end']);
-        $hour = ($time[0]=='00') ? 24 : $time[0];
-        return $dateTime->startOfDay()->addHours($hour)->addMinute($time[1])->addHours($time[2]);
+        return  HelperClass::getDayTime($date,$this->attributes['time_end']);
     }
 
     /**
