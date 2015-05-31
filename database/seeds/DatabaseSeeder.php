@@ -152,7 +152,7 @@ class ServicesSpecialPriceTableSeeder extends Seeder{
         ServicesSpecialPrice::create([
             'services_id' => 3,
             'special_hour'=>2,
-            'special_price' => 250
+            'special_price' => 750
         ]);
     }
 }

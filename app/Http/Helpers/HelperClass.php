@@ -1,7 +1,9 @@
 <?php namespace App\Http\Helpers;
 
+use App\Http\Model\Commission;
 use stdClass, Form, Carbon\Carbon;
 use App\Http\Model\Appointments;
+use App\Http\Model\Payments;
 
 class HelperClass
 {
@@ -110,5 +112,30 @@ class HelperClass
         }
     }
 
+    public static function myAppointmentCommission($user)
+    {
+        $date_start =  Carbon::now()->startOfMonth();
+        $date_end =  Carbon::now()->endOfMonth();
+        $commission = Commission::where('user_id',$user->id)->first();
+        if(!$commission) return 0;
+        $my_payments = Payments::byDate($date_start, $date_end)->active()->count();
+        if($commission && $my_payments < $commission->commission_plus_from )
+        {
+            return $commission->commission_regular/100;
+        }
+        return $commission->plus/100;
+    }
+
+    /**
+     * Calculate Tax Base On Amount
+     * Default Miami Dade 0.07
+     * @param $amount
+     * @param float $tax
+     * @return float
+     */
+    public static function tax( $amount,$tax= 0.07)
+    {
+       return  round( $amount * $tax , 2);
+    }
 
 }

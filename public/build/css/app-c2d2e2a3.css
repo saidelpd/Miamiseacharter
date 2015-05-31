@@ -9119,9 +9119,6 @@ button.close {
 .fa-medium:before {
   content: "\f23a";
 }
-.padding_0 {
-  padding: 0;
-}
 .padding_10 {
   padding-top: 10px;
 }
@@ -9134,6 +9131,9 @@ button.close {
 .padding_50 {
   padding-top: 50px;
 }
+.paddingB_10 {
+  padding-bottom: 10px;
+}
 .paddingB_15 {
   padding-bottom: 15px;
 }
@@ -9142,6 +9142,12 @@ button.close {
 }
 .paddingB_50 {
   padding-top: 50px;
+}
+.no-margin {
+  margin: 0px !important;
+}
+.no-padding {
+  padding: 0px !important;
 }
 .right-15 {
   margin-right: 15px;

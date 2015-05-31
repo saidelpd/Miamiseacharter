@@ -1,3 +1,5 @@
+var subtotal,tax,total = null;
+
 function ForceError(text)
 {
     $('.payment-errors').toggle().text(text);
@@ -9,6 +11,34 @@ function Clear()
     $('#service').parent().parent().removeClass('has-error');
     $('.date_picker_form').removeClass('has-error');
     $('#hours').html('<option value="0">Select One</option>').prop('disabled',true);
+    $('.subtotal-amount').text('$ 0.00');
+    $('.tax-amount').text('$ 0.00');
+    $('.total-amount').text('$ 0.00');
+}
+
+function UpdatePrice(id)
+{
+    if(subtotal != null && tax != null && total != null) {
+        if (typeof subtotal === 'string')
+        {
+            $('.subtotal-amount').text(subtotal);
+            $('.tax-amount').text(tax);
+            $('.total-amount').text(total);
+        }
+        else{
+            $('.subtotal-amount').text(subtotal[id]);
+            $('.tax-amount').text(tax[id]);
+            $('.total-amount').text(total[id]);
+        }
+    }
+    else {
+        $.post("/services/price", { id: id })  .done(function(data) {
+            var value = $.parseJSON(data);
+            $('.subtotal-amount').text(value.cost);
+            $('.tax-amount').text(value.tax);
+            $('.total-amount').text(value.total_price);
+        });
+    }
 }
 
  function CheckHours(id,date)
@@ -24,6 +54,9 @@ function Clear()
                 var html='';
                 if(value.hours)
                 {
+                    subtotal = value.cost;
+                    tax = value.tax;
+                    total = value.total_price;
                     $.each(value.hours, function( index, value ) {
                         html+='<option value="'+index+'">'+value+'</option>'
                     });
@@ -41,8 +74,6 @@ function Clear()
 
 (function() {
     $("#app_date").datepicker({minDate:new Date()});
-
-
     $("#app_date,#service").change(function(){
         Clear();
         var id = $('#service').val();
@@ -54,6 +85,14 @@ function Clear()
             return false;
         }
         CheckHours(id,date)
+    });
+
+    $('#hours').change(function(){
+
+       if($(this).val()!=0)
+       {
+           UpdatePrice($(this).val());
+       }
     });
 
     var StripeBilling = {

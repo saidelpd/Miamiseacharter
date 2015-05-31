@@ -16,16 +16,20 @@ class Payments extends Migration {
         {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('brand');
-            $table->string('funding');
-            $table->integer('exp_month');
-            $table->integer('exp_year');
-            $table->string('country');
-            $table->string('status');
+            $table->integer('user_commission_id')->unsigned();
+            $table->string('brand')->nullable();
+            $table->string('funding')->nullable();
+            $table->integer('exp_month')->nullable();
+            $table->integer('exp_year')->nullable();
+            $table->string('country')->nullable();
+            $table->string('status')->nullable();
+            $table->string('stripe_id_payment')->nullable();
             $table->float('total');
             $table->float('taxes');
             $table->float('stripe_fee');
+            $table->float('commission');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_commission_id')->references('id')->on('users');
             $table->timestamps();
         });
 	}

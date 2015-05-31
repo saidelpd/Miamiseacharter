@@ -39,6 +39,7 @@ Route::group(['prefix' => 'appointments'], function () {
 
 Route::group(['prefix' => 'services'], function () {
     Route::post('/hours', ['uses' => 'Services\ServicesController@hours', 'as' => 'services.hours']);
+    Route::post('/price', ['uses' => 'Services\ServicesController@price', 'as' => 'services.hours']);
 });
 
 

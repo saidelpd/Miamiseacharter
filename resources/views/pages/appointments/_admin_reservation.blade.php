@@ -56,5 +56,25 @@
                 {!! $errors->first('phone','<span class="help-block">:message</span>') !!}
             </div>
         </div>
+        <!-- email Form Input -->
+        <div class="form-group {{ $errors->has('email') ? 'has-error':''}}">
+            {!! Form::label('email','Email:',['class'=>'control-label col-sm-4']) !!}
+            <div class="col-sm-6">
+                {!! Form::text('email',null,['class'=>'form-control','Placeholder'=>'Email']) !!}
+                {!! $errors->first('email','<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
+        <!-- code Form Input -->
+        <div class="form-group {{ $errors->has('user_code') ? 'has-error':''}}">
+            {!! Form::label('code','Reservation Code:',['class'=>'control-label col-sm-4']) !!}
+            <div class="col-sm-4">
+                <?php
+                $code = null;
+                if($user) $code = $user->code;
+                ?>
+                {!! Form::text('user_code',$code,['class'=>'form-control','Placeholder'=>'Code']) !!}
+                {!! $errors->first('user_code','<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
     </div>
 </div>

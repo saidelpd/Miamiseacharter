@@ -11,28 +11,6 @@
         </div>
     </div>
     <div class="widget-content">
-        <!-- email Form Input -->
-        <div class="form-group {{ $errors->has('email') ? 'has-error':''}}">
-            {!! Form::label('email','Email:',['class'=>'control-label col-sm-4']) !!}
-            <div class="col-sm-6">
-                {!! Form::text('email',null,['class'=>'form-control','Placeholder'=>'Email']) !!}
-                {!! $errors->first('email','<span class="help-block">:message</span>') !!}
-            </div>
-        </div>
-        <!-- code Form Input -->
-        <div class="form-group {{ $errors->has('code') ? 'has-error':''}}">
-            {!! Form::label('code','Reservation Code:',['class'=>'control-label col-sm-4']) !!}
-            <div class="col-sm-4">
-                <?php
-                 $code = null;
-                if($user) $code = $user->code;
-                ?>
-                {!! Form::text('code',$code,['class'=>'form-control','Placeholder'=>'Code']) !!}
-                {!! $errors->first('code','<span class="help-block">:message</span>') !!}
-            </div>
-        </div>
-
-
         <!-- card number Form Input -->
         <div class="form-group">
             {!! Form::label('card','Card number:',['class'=>'control-label col-sm-4']) !!}
@@ -47,7 +25,7 @@
                 {!! Form::text('',null,['class'=>'form-control','Placeholder'=>'CVC','data-stripe'=>'cvc']) !!}
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group paddingB_15">
             {!! Form::label('expiration','Expiration Date:',['class'=>'control-label col-sm-4']) !!}
             <div class="col-sm-6">
                 <div class="row">
@@ -60,9 +38,38 @@
                 </div>
             </div>
         </div>
+
+        <!-- CheCk OUt -->
+        <div class="widget widget-no-header col-sm-8 col-sm-offset-2">
+            <div class="widget-content">
+                <!-- email Form Input -->
+                <div class="form-group no-margin">
+                    {!! Form::label('email','SubTotal:',['class'=>'control-label col-sm-8']) !!}
+                    <div class="col-sm-4">
+                        <p class="form-control-static pull-right"><strong class="subtotal-amount">$0.00</strong></p>
+                    </div>
+                </div>
+                <hr class="divider no-margin">
+                <!-- code Form Input -->
+                <div class="form-group no-margin {{ $errors->has('code') ? 'has-error':''}}">
+                    {!! Form::label('code','Tax:',['class'=>'control-label col-sm-8']) !!}
+                    <div class="col-sm-4">
+                            <p class="form-control-static pull-right"><strong class="tax-amount">$0.00</strong></p>
+                    </div>
+                </div>
+                <hr class="divider no-margin">
+                <!-- code Form Input -->
+                <div class="form-group no-margin {{ $errors->has('code') ? 'has-error':''}}">
+                    {!! Form::label('code','Total:',['class'=>'control-label col-sm-8']) !!}
+                    <div class="col-sm-4 ">
+                            <p class="form-control-static pull-right"><strong class="total-amount">$0.00</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-group">
             {!! Form::label('','',['class'=>'control-label col-sm-4']) !!}
-            <div class="col-sm-6">
+            <div class="col-sm-6 padding_15">
                <button type="submit" id="send-payment" class="btn btn-primary">Create Reservation & Make Payment</button>
             </div>
         </div>

@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Model\Services;
 use App\Commands\Services\AvailableHoursCommand;
-
+use App\Commands\Services\PriceCommand;
 
 
 class ServicesController extends Controller {
@@ -30,5 +30,14 @@ class ServicesController extends Controller {
     public function hours(){
       return json_encode($this->dispatchFrom(AvailableHoursCommand::class,$this->request));
     }
+
+    /**
+     * Get Available Hours For The Selected Service
+     */
+    public function price(){
+        return json_encode($this->dispatchFrom(PriceCommand::class,$this->request,['currency'=>true]));
+    }
+
+
 
 }

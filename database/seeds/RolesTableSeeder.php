@@ -9,7 +9,7 @@ class RolesTableSeeder extends Seeder{
     public function run()
     {
         DB::table('roles')->delete();
-        $roles = ['Admin','Concierge','Vendors','Guess'];
+        $roles = ['Admin','Concierge','Vendors','Guest'];
         foreach ($roles as $rol)
         {
           Roles::create(['name' => $rol]);

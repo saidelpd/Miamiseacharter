@@ -1,8 +1,6 @@
 <?php namespace App\Http\Controllers\Appointments;
 
 use App\Http\Controllers\Controller;
-use App\Http\Model\Payments;
-use App\Http\Model\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Model\Appointments;
@@ -10,6 +8,7 @@ use App\Http\Model\Services;
 use App\Commands\Appointments\CalendarEventsCommand;
 use App\Commands\Appointments\ViewCommand;
 use App\Commands\Appointments\StoreCommand;
+use App\Commands\Services\PriceCommand;
 
 /**
  * Class AppointmentsController
@@ -48,7 +47,9 @@ class AppointmentsController extends Controller {
 
     public function store(CreateRequest $create)
     {
-         $this->dispatchFrom(StoreCommand::class,$this->request,['token'=>$this->request->input('stripe-token')]);
+         $price = $this->dispatchFromArray(PriceCommand::class,['id'=>$this->request->input('hours'),'currency'=>false]);
+         $token = $this->request->input('stripe-token');
+         $this->dispatchFrom(StoreCommand::class,$this->request,compact('token','price'));
     }
 
     /**
