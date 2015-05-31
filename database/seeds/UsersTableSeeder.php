@@ -11,14 +11,14 @@ class UsersTableSeeder extends Seeder{
     {
         $faker = Faker\Factory::create('en_US');
         DB::table('users')->delete();
-
-        foreach (range(1,50) as $index)
+        foreach (range(1,15) as $index)
         {
             User::create([
               'first' => $faker->firstName,
               'last' => $faker->lastName,
               'email' => $faker->email,
               'phone' => $faker->phoneNumber,
+              'code' => $faker->numberBetween(1000,9999),
               'roles_id' => $faker->numberBetween(1,3),
               'password' => Hash::make('kurtcobain'),
           ]);

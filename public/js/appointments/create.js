@@ -4,26 +4,56 @@ function ForceError(text)
     setTimeout(function(){ $('.payment-errors').toggle('slow'); }, 5000);
 }
 
+function Clear()
+{
+    $('#service').parent().parent().removeClass('has-error');
+    $('.date_picker_form').removeClass('has-error');
+    $('#hours').html('<option value="0">Select One</option>').prop('disabled',true);
+}
+
+ function CheckHours(id,date)
+{
+    $.post("/services/hours", { id: id, date: date })
+        .done(function( data ) {
+            var value = $.parseJSON(data);
+            if(value.has_error)
+            {
+                ForceError('Service Error Please Refresh The Page. IF the problem continue please contact Admin')
+            }
+            else{
+                var html='';
+                if(value.hours)
+                {
+                    $.each(value.hours, function( index, value ) {
+                        html+='<option value="'+index+'">'+value+'</option>'
+                    });
+                }
+                if(html == '')
+                {
+                    ForceError('Sorry but there is no availability for this date');
+                    $('.date_picker_form').addClass('has-error');
+                    return false;
+                }
+                $('#hours').append(html).prop('disabled',false);
+            }
+        });
+}
+
 (function() {
     $("#app_date").datepicker({minDate:new Date()});
-    $("#app_date").change(function(){
-        $('#service').parent().parent().removeClass('has-error');
+
+
+    $("#app_date,#service").change(function(){
+        Clear();
         var id = $('#service').val();
+        var date = $('#app_date').val();
         if(id==0)
         {
             ForceError('Please Select Service First');
             $('#service').parent().parent().addClass('has-error');
             return false;
         }
-        $.post("/services/hours", { id: id, date: $(this).val() })
-            .done(function( data ) {
-                var value = $.parseJSON(data);
-                console.log(value);
-                if(value.has_error)
-                {
-                    ForceError('Service Error Please Refresh The Page. IF the problem continue please contact Admin')
-                }
-            });
+        CheckHours(id,date)
     });
 
     var StripeBilling = {

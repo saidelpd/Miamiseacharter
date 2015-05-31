@@ -9,6 +9,7 @@ use App\Http\Model\Appointments;
 use App\Http\Model\Services;
 use App\Commands\Appointments\CalendarEventsCommand;
 use App\Commands\Appointments\ViewCommand;
+use App\Commands\Appointments\StoreCommand;
 
 /**
  * Class AppointmentsController
@@ -47,43 +48,7 @@ class AppointmentsController extends Controller {
 
     public function store(CreateRequest $create)
     {
-     dd($this->request);
-        $user = User::where('email',$this->request->email)->with('role')->first();
-
-        if($user && count($user->roles) && $user->roles->isRole('Guest'))
-        {
-            $user->first = 'Test';
-            $user->last = 'Perez';
-            $user->phone = '786-449-8395';
-            $user->save();
-        }
-        else if(!$user) {
-            $user = User::create([
-                'first'=>'Yaima',
-                'last'=>'Rodriguez',
-                'email'=>$this->request->email,
-                'phone'=>'786-449-8395',
-                'roles_id' => '4'
-            ]);
-        }
-
-        $payment = Payments::create([
-            'user_id'=>$user->id,
-            'total'=>18,
-            'taxes'=>2
-        ]);
-
-
-        $pago = $payment->charge(2000, [
-            'source' => $this->request->input('stripe-token'),
-            'receipt_email' => $user->email,
-        ]);
-
-
-
-
-
-        dd('CHARGE DONE',$pago);
+         $this->dispatchFrom(StoreCommand::class,$this->request,['token'=>$this->request->input('stripe-token')]);
     }
 
     /**

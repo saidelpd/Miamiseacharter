@@ -46,7 +46,7 @@ class ServicesTableSeeder extends Seeder{
     {
         $faker = Faker\Factory::create('en_US');
         DB::table('services')->delete();
-        $names = ['Dinner'=>300,'Dinner Movie'=>500,'Night At Marina'=>500,'Sea Burial'=>500,'Bimini'=>2500,'Travel'=>0];
+        $names = ['Dinner'=>300,'Dinner Movie'=>500,'Night At Marina'=>500,'Sea Burial'=>500,'Bimini'=>2500,'Travel'=>300];
         foreach ($names as $keys => $price)
         {
             $special = ($keys == 'Travel' || $keys =='Night At Marina') ? true:false;
@@ -249,7 +249,12 @@ class ServicesTimesTableSeeder extends Seeder{
         ServicesTimes::create([
             'services_id' => 6,
             'time_start'=>'07:00:00',
-            'time_end' => '11:00:00'
+            'time_end' => '12:00:00'
+        ]);
+        ServicesTimes::create([
+            'services_id' => 6,
+            'time_start'=>'13:00:00',
+            'time_end' => '18:00:00'
         ]);
     }
 }

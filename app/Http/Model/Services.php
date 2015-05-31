@@ -12,7 +12,10 @@ class Services extends Model {
     {
         return $this->hasMany('App\Http\Model\ServicesTimes','services_id','id');
     }
-
+    public function specialPrices()
+    {
+        return $this->hasMany('App\Http\Model\ServicesSpecialPrice','services_id','id');
+    }
 
 
 }

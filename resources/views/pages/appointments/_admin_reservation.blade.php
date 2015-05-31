@@ -14,7 +14,7 @@
             </div>
         </div>
         <!-- Date Form Input -->
-        <div class="form-group {{ $errors->has('app_date') ? 'has-error':''}}">
+        <div class="date_picker_form form-group {{ $errors->has('app_date') ? 'has-error':''}}">
             {!! Form::label('date','Select Date:',['class'=>'control-label col-sm-4']) !!}
             <div class="col-sm-5">
                 <div class="input-group date">
@@ -29,7 +29,7 @@
         <div class="form-group {{ $errors->has('hours') ? 'has-error':''}}">
             {!! Form::label('hours','Select Hours:',['class'=>'control-label col-sm-4']) !!}
             <div class="col-sm-5">
-                {!! Form::select('hours',['Select One'],null,['class'=>'form-control','disabled']) !!}
+                {!! Form::select('hours',['Select One'],null,['class'=>'form-control','disabled','id'=>'hours']) !!}
                 {!! $errors->first('hours','<span class="help-block">:message</span>') !!}
             </div>
         </div>

@@ -19,6 +19,19 @@
                 {!! $errors->first('email','<span class="help-block">:message</span>') !!}
             </div>
         </div>
+        <!-- code Form Input -->
+        <div class="form-group {{ $errors->has('code') ? 'has-error':''}}">
+            {!! Form::label('code','Reservation Code:',['class'=>'control-label col-sm-4']) !!}
+            <div class="col-sm-4">
+                <?php
+                 $code = null;
+                if($user) $code = $user->code;
+                ?>
+                {!! Form::text('code',$code,['class'=>'form-control','Placeholder'=>'Code']) !!}
+                {!! $errors->first('code','<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
+
 
         <!-- card number Form Input -->
         <div class="form-group">
@@ -47,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group padding_25">
+        <div class="form-group">
             {!! Form::label('','',['class'=>'control-label col-sm-4']) !!}
             <div class="col-sm-6">
                <button type="submit" id="send-payment" class="btn btn-primary">Create Reservation & Make Payment</button>
