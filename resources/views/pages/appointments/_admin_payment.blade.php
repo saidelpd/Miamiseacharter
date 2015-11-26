@@ -14,20 +14,20 @@
         <!-- card number Form Input -->
         <div class="form-group">
             {!! Form::label('card','Card number:',['class'=>'control-label col-sm-4']) !!}
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 {!! Form::text('',null,['class'=>'form-control','Placeholder'=>'Card Number','data-stripe'=>'number']) !!}
             </div>
         </div>
         <!-- CVC Form Input -->
         <div class="form-group">
             {!! Form::label('cvc','CVC:',['class'=>'control-label col-sm-4']) !!}
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 {!! Form::text('',null,['class'=>'form-control','Placeholder'=>'CVC','data-stripe'=>'cvc']) !!}
             </div>
         </div>
         <div class="form-group paddingB_15">
             {!! Form::label('expiration','Expiration Date:',['class'=>'control-label col-sm-4']) !!}
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <div class="row">
                     <div class="col-sm-6">
                         {!! Form::selectMonth(null, null, ['data-stripe' => 'exp-month','class'=>'form-control']) !!}
@@ -40,7 +40,7 @@
         </div>
 
         <!-- CheCk OUt -->
-        <div class="widget widget-no-header col-sm-8 col-sm-offset-2">
+        <div class="widget widget-no-header col-sm-9 col-sm-offset-2">
             <div class="widget-content">
                 <!-- email Form Input -->
                 <div class="form-group no-margin">

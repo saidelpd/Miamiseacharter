@@ -10,7 +10,7 @@
             <!-- email Form Input -->
             <div class="form-group {{ $errors->has('email') ? 'has-error':''}}">
                 {!! Form::label('email','E-Mail Address:',['class'=>'control-label col-sm-4']) !!}
-                <div class="col-sm-4">
+                <div class="col-sm-6">
                     {!! Form::text('email',old('email'),['class'=>'form-control','Placeholder'=>'Email']) !!}
                     {!! $errors->first('email','<span class="help-block">:message</span>') !!}
                 </div>
