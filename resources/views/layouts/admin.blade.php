@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     @if(!isset($TITLE)) <?php $TITLE = "Welcome";?> @endif
     <title>Miami Sea Charter | {{$TITLE}}</title>
-
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,300,400,700' rel='stylesheet'
           type='text/css'>

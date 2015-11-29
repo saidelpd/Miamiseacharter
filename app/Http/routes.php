@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', ['uses' => 'FrontEnd\FrontEndController@index', 'as' => 'front.index']);
 
 
 Route::group(['prefix' => 'admin'], function () {

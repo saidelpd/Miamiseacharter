@@ -74,6 +74,11 @@ trait HelperTrait
             /*PRINT*/
             'jprint'=>"vendor/printPage/jquery.printPage",
 
+            /*FRONT END VERSION*/
+            'instafeed'=>"vendor/instafeed/instafeed.min",
+            'simplyscroll'=>"vendor/jqueryScroll/jquery.simplyscroll.min",
+            'jqueryScroll'=>"vendor/jqueryScroll/jquery.scrollTo.min",
+            'lightbox'=>"vendor/lightbox/lightbox",
             /*CALENDAR*/
             'moment'=>'vendor/full-calendar/moment.min',
             'calendar'=>'vendor/full-calendar/fullcalendar.min',
