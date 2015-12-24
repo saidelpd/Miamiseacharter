@@ -28,7 +28,9 @@ class UsersController extends Controller {
 	{
         if($this->request->isMethod('post'))
         {
-        return ($profile = $this->dispatch(new ProfileCommand($this->request,$this->user))) ? view('pages.users.profile')->withErrors($profile) : view('pages.users.profile')->withSuccess(true);
+        return ($profile = $this->dispatch(new ProfileCommand($this->request,$this->user))) ?
+				view('pages.users.profile')->withErrors($profile):
+				view('pages.users.profile')->withSuccess(true);
         }
         $this->setupLayout("User Profile");
 		return view('pages.users.profile');
